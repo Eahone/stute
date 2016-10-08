@@ -29,6 +29,7 @@ now = datetime.datetime.now() - datetime.timedelta(4)
 
 # go through all regions
 for region in boto.ec2.regions():
+    if region.name != 'us-east-1': continue
     try:
         conn = boto.ec2.connect_to_region(region.name)
         reservations = conn.get_all_instances()
