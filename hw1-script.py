@@ -29,8 +29,6 @@ now = datetime.datetime.now()
 
 # go through all regions
 for region in boto.ec2.regions():
-    if region.name != 'us-east-1': continue
-    print region
     try:
         conn = boto.ec2.connect_to_region(region.name)
         reservations = conn.get_all_instances()
@@ -40,6 +38,7 @@ for region in boto.ec2.regions():
             for inst in res.instances:
                 name = inst.tags['Name'] if 'Name' in inst.tags else 'Unknown'
                 state = inst.state
+                if state == 'terminated': continue
 
                 # check auto:start and auto:stop tags
                 start_sched = inst.tags['auto:start'] if 'auto:start' in inst.tags else None
