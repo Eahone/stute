@@ -25,7 +25,7 @@ def time_to_action(sched, now, seconds):
     return ret
 
 
-now = datetime.datetime.now() - datetime.timedelta(4)
+now = datetime.datetime.now() - datetime.timedelta(hours=4)
 
 # go through all regions
 for region in boto.ec2.regions():
